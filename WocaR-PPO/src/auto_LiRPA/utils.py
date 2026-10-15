@@ -5,7 +5,8 @@ import torch
 import os
 import appdirs
 from oslo_concurrency import lockutils, processutils
-from collections import defaultdict, Sequence, namedtuple
+from collections import defaultdict, namedtuple
+from collections.abc import Sequence
 
 # Special identity matrix. Avoid extra computation of identity matrix multiplication in various places.
 eyeC = namedtuple('eyeC', 'shape device')

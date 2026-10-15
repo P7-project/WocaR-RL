@@ -1,5 +1,5 @@
 {
-    "game": "Hopper-v2",
+    "game": "Hopper-v4",
     "mode": "ppo",
     "value_calc": "gae",
     "num_minibatches": 32,

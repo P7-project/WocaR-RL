@@ -30,7 +30,7 @@
     "entropy_coeff": 0.0,
     "fisher_frac_samples": 0.1,
     "force_stop_step": -1,
-    "game": "HalfCheetah-v2",
+    "game": "HalfCheetah-v4",
     "gamma": 0.99,
     "history_length": -1,
     "initial_std": 0.5,
@@ -74,5 +74,11 @@
     "value_calc": "gae",
     "value_clipping": true,
     "value_multiplier": 0.1,
-    "value_net_type": "ValueNet"
+    "value_net_type": "ValueNet",
+    "value_activation": "tanh",
+    "q_lr": 0.0004,
+    "q_epochs": 10,
+    "tau": 0.001,
+    "weight_schedule": "linear",
+    "q_weight": 0.0
 }

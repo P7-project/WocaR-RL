@@ -30,7 +30,7 @@
     "entropy_coeff": 0.0,
     "fisher_frac_samples": 0.1,
     "force_stop_step": -1,
-    "game": "Ant-v2",
+    "game": "Ant-v4",
     "gamma": 0.99,
     "history_length": -1,
     "initial_std": 1.0,

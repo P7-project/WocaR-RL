@@ -1,16 +1,20 @@
-pandas
-gym
-numpy
-dill
-matplotlib
-torch>=1.3.0,<1.7
-tqdm
-gitpython
-scikit_learn
-tensorboardX
-tables
-mujoco-py==1.50.1.68
-packaging>=20.0
-pytest>=5.0
-appdirs>=1.4
-oslo.concurrency>=4.2
+# Python 3.11; install from WocaR-PPO (see README).
+# Compatible wheels for macOS (Apple Silicon/Intel), Windows and Linux x86-64.
+# Keep NumPy 1.x and the pre-2.6 PyTorch checkpoint-loading behavior.
+numpy==1.26.4
+torch==2.2.2
+gymnasium[mujoco]==1.0.0
+mujoco==3.2.7
+pandas==2.2.3
+dill==0.3.9
+matplotlib==3.9.4
+pillow==11.1.0
+tqdm==4.67.1
+GitPython==3.1.44
+scikit-learn==1.6.1
+tensorboardX==2.6.2.2
+tables==3.10.2
+packaging==24.2
+appdirs==1.4.4
+oslo.concurrency==6.1.0
+./src/cox.git

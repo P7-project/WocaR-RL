@@ -11,7 +11,6 @@ import torch.optim as optim
 import numpy as np
 import random
 from copy import deepcopy
-import gym
 from auto_LiRPA import BoundedModule
 from auto_LiRPA.eps_scheduler import LinearScheduler
 from auto_LiRPA.bounded_tensor import BoundedTensor

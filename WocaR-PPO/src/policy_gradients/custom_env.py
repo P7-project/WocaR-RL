@@ -1,9 +1,9 @@
 import os
 import numpy as np
 from PIL import Image
-from gym.spaces.discrete import Discrete
-from gym.spaces.box import Box as Continuous
-import gym
+from gymnasium.spaces import Discrete
+from gymnasium.spaces import Box as Continuous
+import gymnasium as gym
 import random
 from .torch_utils import RunningStat, ZFilter, Identity, StateWithTime, RewardFilter
 
@@ -21,7 +21,15 @@ class Env:
     '''
     def __init__(self, game, norm_states, norm_rewards, params, add_t_with_horizon=None, clip_obs=None, clip_rew=None, 
             show_env=False, save_frames=False, save_frames_path=""):
-        self.env = gym.make(game)
+        kwargs = {}
+        if save_frames:
+            kwargs["render_mode"] = "rgb_array"
+        elif show_env:
+            kwargs["render_mode"] = "human"
+        # Original Ant-v2 included contact forces. Gymnasium's Ant-v4 leaves them out unless asked.
+        if game == "Ant-v4":
+            kwargs["use_contact_forces"] = True
+        self.env = gym.make(game, **kwargs)
         clip_obs = None if clip_obs < 0 else clip_obs
         clip_rew = None if clip_rew < 0 else clip_rew
 
@@ -37,7 +45,7 @@ class Env:
         
         # Number of features
         assert len(self.env.observation_space.shape) == 1
-        self.num_features = self.env.reset().shape[0]
+        self.num_features = self.env.reset()[0].shape[0]
 
         # Support for state normalization or using time as a feature
         self.state_filter = Identity()
@@ -94,9 +102,8 @@ class Env:
 
     def reset(self):
         # Set a deterministic random seed for reproduicability
-        self.env.seed(random.getrandbits(31))
         # Reset the state, and the running total reward
-        start_state = self.env.reset()
+        start_state, _ = self.env.reset(seed=random.getrandbits(31))
         self.total_true_reward = 0.0
         self.counter = 0.0
         self.episode_counter += 1
@@ -108,12 +115,13 @@ class Env:
         return self.state_filter(start_state, reset=True)
 
     def step(self, action):
-        state, reward, is_done, info = self.env.step(action)
+        state, reward, terminated, truncated, info = self.env.step(action)
+        is_done = terminated or truncated
         if self.show_env:
             self.env.render()
         # Frameskip (every 6 frames, will be rendered at 25 fps)
         if self.save_frames and int(self.counter) % 6 == 0:
-            image = self.env.render(mode='rgb_array')
+            image = self.env.render()
             path = os.path.join(self.save_frames_path, f"{self.episode_counter:03d}", f"{self.frame_counter+1:04d}.bmp")
             image = Image.fromarray(image)
             image.save(path)

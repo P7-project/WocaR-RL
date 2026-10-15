@@ -1,5 +1,5 @@
 {
-    "adam_eps": 1e-05,
+    "adam_eps": 1e-5,
     "adv_adversary_ratio": 1.0,
     "adv_adversary_steps": 1,
     "adv_clip_eps": "same",
@@ -30,7 +30,7 @@
     "entropy_coeff": 0.0,
     "fisher_frac_samples": 0.1,
     "force_stop_step": -1,
-    "game": "Hopper-v2",
+    "game": "Hopper-v4",
     "gamma": 0.99,
     "history_length": -1,
     "initial_std": 1.0,
@@ -74,5 +74,11 @@
     "value_calc": "gae",
     "value_clipping": false,
     "value_multiplier": 0.1,
-    "value_net_type": "ValueNet"
+    "value_net_type": "ValueNet",
+    "value_activation": "tanh",
+    "q_lr": 0.0004,
+    "q_epochs": 10,
+    "tau": 0.001,
+    "weight_schedule": "linear",
+    "q_weight": 0.0
 }
